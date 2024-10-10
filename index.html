@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Fantasy Manhwa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .manhwa {
+            margin: 20px 0;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Top Fantasy Manhwa</h1>
+    <div id="manhwa-list"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('manhwa.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const manhwaList = document.getElementById('manhwa-list');
+                data.forEach(manhwa => {
+                    const manhwaDiv = document.createElement('div');
+                    manhwaDiv.className = 'manhwa';
+                    manhwaDiv.innerHTML = `<h2>${manhwa.title}</h2><p>Genre: ${manhwa.genre}</p><p>${manhwa.description}</p>`;
+                    manhwaList.appendChild(manhwaDiv);
+                });
+            })
+            .catch(error => console.error('Error fetching the JSON:', error));
+        });
+    </script>
+</body>
+</html>
+
